@@ -618,10 +618,6 @@ export default {
                   /*border-bottom-left-radius: 10px;*/
                   opacity: 0.2;
                 }
-
-                .bar-percent {
-                  /*line-height: 100px;*/
-                }
               }
             }
           }
