@@ -2,35 +2,14 @@
   <div id="map2D" style="width: 100%;height: 100%;overflow: hidden">
     <div id="mapId" style="width: 100%;height: 100%;"></div>
     <div
-      :class="{'alarmInfo':popWindowData.state != '正常',
-      'normalInfo':popWindowData.state == '正常',
-      'no-video-height':(!popWindowData.videoSrcL&&!popWindowData.videoSrcR&&!popWindowData.leftCameraId&&!popWindowData.rightCameraId)}"
       class="infoWindow"
       id="mapWindow"
       ref="mapWindow"
-      v-show="isPop"
-    >
-      <div></div>
-      <div class="title" v-if="popWindowData.state == '正常'">垃圾投递点基本信息</div>
-      <div class="title" v-else>垃圾桶{{popWindowData.state}}告警</div>
+      v-show="isPop">
+      <div class="title" >垃圾投递点基本信息</div>
       <div class="infoDiv">
-        <div class="infoDivL" v-if="currentPrecinctType != '行政村'">
-          <div class="row">今日投递次数：{{popWindowData.count}}次</div>
-          <div class="row">
-            状态：
-            <span
-              :class="{'stateTxtRed': popWindowData.state != '正常'}"
-              class="stateTxt"
-            >{{popWindowData.state}}</span>
-          </div>
-          <div class="row">所属小区：{{popWindowData.precinctName}}</div>
-          <div :title="popWindowData.installAddr" class="row">具体位置：{{popWindowData.installAddr}}</div>
-          <div class="row">所处编组：第{{popWindowData.group}}组</div>
-          <div class="row">智能垃圾桶总数：{{popWindowData.deviceCount}}台</div>
-        </div>
-        <div class="infoDivL" v-else>
+        <div class="infoDivL">
           <br />
-          <!--          <div class="row">今日清运量：{{popWindowData.count}}吨</div>-->
           <div class="row">今日清运量：0.8吨</div>
           <div class="row">所属村：{{popWindowData.precinctName}}</div>
           <div
@@ -41,111 +20,6 @@
           <div class="row">负责人：{{popWindowData.leader}}</div>
           <div class="row">联系电话：{{popWindowData.phone}}</div>
         </div>
-        <div class="infoDivR" v-if="currentPrecinctType != '行政村'">
-          <div class="garbageDiv">
-            <div class="bars">
-              <div class="barCommon">
-                <div :class="{'temRed':popWindowData.temp1 > 60}">{{popWindowData.temp1}}℃</div>
-                <div class="barBase wet-color">
-                  <div
-                    :style="'height:'+ 0.8*(100 - popWindowData.capacity1) +'px'"
-                    class="barValue wetValue"
-                  ></div>
-                  <div class="bar-percent">{{popWindowData.capacity1}}%</div>
-                </div>
-                <div class="bk-icon wet-bk"></div>
-              </div>
-              <div class="barCommon">
-                <div :class="{'temRed':popWindowData.temp2 > 60}">{{popWindowData.temp2}}℃</div>
-                <div class="barBase dry-color">
-                  <div
-                    :style="'height:'+0.8*(100 - popWindowData.capacity2)+'px'"
-                    class="barValue dryValue"
-                  ></div>
-                  <div class="bar-percent">{{popWindowData.capacity2}}%</div>
-                </div>
-                <div class="bk-icon dry-bk"></div>
-              </div>
-            </div>
-            <div class="barText">1 号</div>
-          </div>
-          <div class="garbageDiv">
-            <div class="bars">
-              <div class="barCommon">
-                <div :class="{'temRed':popWindowData.temp3 > 60}">{{popWindowData.temp3}}℃</div>
-                <div class="barBase wet-color">
-                  <div
-                    :style="'height:'+0.8*(100 - popWindowData.capacity3)+'px'"
-                    class="barValue wetValue"
-                  ></div>
-                  <div class="bar-percent">{{popWindowData.capacity3}}%</div>
-                </div>
-                <div class="bk-icon wet-bk"></div>
-              </div>
-              <div class="barCommon">
-                <div :class="{'temRed':popWindowData.temp4 > 60}">{{popWindowData.temp4}}℃</div>
-                <div class="barBase dry-color">
-                  <div
-                    :style="'height:'+0.8*(100 - popWindowData.capacity4)+'px'"
-                    class="barValue dryValue"
-                  ></div>
-                  <div class="bar-percent">{{popWindowData.capacity4}}%</div>
-                </div>
-                <div class="bk-icon dry-bk"></div>
-              </div>
-            </div>
-            <div class="barText">2 号</div>
-          </div>
-          <div class="garbageDiv" v-if="popWindowData.deviceCount == 3">
-            <div class="bars">
-              <div class="barCommon">
-                <div :class="{'temRed':popWindowData.temp5 > 60}">{{popWindowData.temp5}}℃</div>
-                <div class="barBase dry-color">
-                  <div
-                    :style="'height:'+0.8*(100 - popWindowData.capacity5)+'px'"
-                    class="barValue dryValue"
-                  ></div>
-                  <div class="bar-percent">{{popWindowData.capacity5}}%</div>
-                </div>
-                <div class="bk-icon dry-bk"></div>
-              </div>
-              <div class="barCommon">
-                <div :class="{'temRed':popWindowData.temp6 > 60}">{{popWindowData.temp6}}℃</div>
-                <div class="barBase recycle-color">
-                  <div
-                    :style="'height:'+0.8*(100 - popWindowData.capacity6)+'px'"
-                    class="barValue recyleValue"
-                  ></div>
-                  <div class="bar-percent">{{popWindowData.capacity6}}%</div>
-                </div>
-                <div class="bk-icon recycle-bk"></div>
-              </div>
-            </div>
-            <div class="barText">3 号</div>
-          </div>
-        </div>
-      </div>
-      <div class="videoDiv">
-        <z-n-v-video
-          :cameraId="popWindowData.leftCameraId +'_Vmap1'"
-          :cameraLink="popWindowData.videoSrcL"
-          :deviceId="popWindowData.deviceId +'_Vmap1'"
-          :videoType="popWindowData.videoType"
-          class="mapVideoDIV"
-          ref="mapDevice1"
-        ></z-n-v-video>
-        <z-n-v-video
-          :cameraId="popWindowData.rightCameraId +'_Vmap2'"
-          :cameraLink="popWindowData.videoSrcR"
-          :deviceId="popWindowData.deviceId +'_Vmap2'"
-          :videoType="popWindowData.videoType"
-          class="mapVideoDIV"
-          ref="mapDevice2"
-        ></z-n-v-video>
-        <!--        <video v-if="popWindowData.videoSrcL!=null" :src="popWindowData.videoSrcL" autoplay controls id="mapVideo1"-->
-        <!--               muted webkit-playsinline></video>-->
-        <!--        <video v-if="popWindowData.videoSrcR!=null" :src="popWindowData.videoSrcR" autoplay controls id="mapVideo2"-->
-        <!--               muted webkit-playsinline></video>-->
       </div>
       <i
         @click="closeInfoWindow"
@@ -160,10 +34,13 @@ import $ from "jquery";
 import Axios from "axios";
 import AMap from "AMap";
 import CoordTransform from "../utils/coordtransform";
-import ZNVVideo from "./ZNVVideo";
+import sysConfig from '../../static/sysConfig'
+import componyPoints from '../../static/mapPoints'
+import demoData from '../../static/demoData'
+// import ZNVVideo from "./ZNVVideo";
 
 export default {
-  components: { ZNVVideo },
+  // components: { ZNVVideo },
   data() {
     return {
       websock: null,
@@ -175,7 +52,7 @@ export default {
       isPop: false,
       currentPrecinctType: "高东镇",
       popWindowData: {
-        state: "满溢",
+        state: "正常",
         precinctName: "品欣雅苑",
         installAddr: "17单元配电房左侧",
         group: "1",
@@ -203,52 +80,8 @@ export default {
       geocoder: new AMap.Geocoder({ city: "shanghai" }) // 城市设为北京，默认：“全国”
     };
   },
-  mounted() {
-    let contW = 1920 * 2;
-    let contH = 1080 * 2;
-    let cliWidth =
-      document.documentElement.clientWidth || document.body.clientWidth;
-    let cliHeight =
-      document.documentElement.clientHeight || document.body.clientHeight;
-    let w = cliWidth / contW;
-    let h = cliHeight / contH;
-    this.resize({ w: w, h: h });
-    this.$root.eventBus.$on("resize", oo => {
-      this.resize(oo);
-    });
-    this.$root.eventBus.$on("changePId", oo => {
-      this.closeInfoWindow();
-      if (this.myTimers) clearInterval(this.myTimers)
-      let centerPoint, mapZoom;
-      if (oo.pId == "高东镇") {
-        mapZoom = 13;
-        this.selfMap.setCenter([121.622783, 31.327013]);
-      } else {
-        mapZoom = 17;
-        this.geocoder.getLocation("高东镇" + oo.pId, (status, result) => {
-          if (status === "complete" && result.geocodes.length) {
-            var lnglat = result.geocodes[0].location;
-            this.selfMap.setCenter(lnglat);
-          } else {
-            console.log("根据地址查询位置失败");
-          }
-        });
-      }
-      this.selfMap.setZoom(mapZoom);
-      this.initData();
-    });
-    this.initMap();
-    this.initWebSocket();
-  },
-  destroyed: function() {
-    this.selfMap && this.selfMap.destroy();
-    this.clearAllTimer();
-  },
   methods: {
-    getRandomNum: function(min, max) {
-      let cur = Math.floor(Math.random() * (max - min) + min);
-      return cur;
-    },
+    // 、、地图缩放
     resize: function(oo) {
       let w = oo.w;
       let h = oo.h;
@@ -267,17 +100,19 @@ export default {
         center: [121.622783, 31.327013],
         zoom: 13,
         resizeEnable: true,
-        zooms: [12, 18],
-        mapStyle: "amap://styles/blue" // 设置地图的显示样式
-        // features: ['bg', 'building', 'point']
+        zooms: [10, 18],
+        // mapStyle: "amap://styles/blue" // 设置地图的显示样式
       });
       this.selfMap.on("complete", function() {
         // 地图轮廓勾勒
         self.regionalContour();
         // 获取页面数据
         self.initData();
+        self.addPoints()
       });
+
     },
+    //画出范围轮廓
     regionalContour: function() {
       let coodData = require("@/libs/map_gaodongzhen.json");
       let path = [];
@@ -299,7 +134,7 @@ export default {
           map: this.selfMap,
           fillColor: "rgba(10,15,97)",
           strokeColor: "#0A2CAA",
-          strokeWeight: 12,
+          strokeWeight: 8,
           fillOpacity: 0,
           strokeOpacity: 0.84,
           path: path[j],
@@ -307,83 +142,51 @@ export default {
         });
       }
     },
+    //  清楚定时器
     clearAllTimer: function() {
       this.myTimers && clearInterval(this.myTimers);
       this.myTimerFlicker && clearInterval(this.myTimerFlicker);
     },
     // 关闭信息窗体
     closeInfoWindow: function() {
-      this.$refs.mapDevice1 && this.$refs.mapDevice1.videoClear();
-      this.$refs.mapDevice2 && this.$refs.mapDevice2.videoClear();
       this.infoWindow && this.infoWindow.close();
     },
     // 创建信息窗体
     createInfoWindow: function(data) {
       this.isPop = true;
-      let url = "apis/garbage/temparatureAndValue?deviceId=" + data.deviceId;
-      Axios.get(url)
-        .then(res => {
-          if (res.data.data) {
-            let datas = res.data.data;
-            this.popWindowData.capacity1 = datas.value1;
-            this.popWindowData.capacity2 = datas.value2;
-            this.popWindowData.capacity3 = datas.value3;
-            this.popWindowData.capacity4 = datas.value4;
-            this.popWindowData.capacity5 = datas.value5;
-            this.popWindowData.capacity6 = datas.value6;
-
-            this.popWindowData.temp1 = datas.temperature1;
-            this.popWindowData.temp2 = datas.temperature2;
-            this.popWindowData.temp3 = datas.temperature3;
-            this.popWindowData.temp4 = datas.temperature4;
-            this.popWindowData.temp5 = datas.temperature5;
-            this.popWindowData.temp6 = datas.temperature6;
-
-            this.popWindowData.state = datas.deviceState;
-            this.popWindowData.count = datas.deliveryCount;
-            this.popWindowData.deviceCount = datas.deviceCount;
-            this.popWindowData.group = datas.groupInfo;
-          }
-        })
-        .catch(e => {});
       this.popWindowData.precinctName = data.precinctName;
       this.popWindowData.installAddr = data.installAddr;
-      this.popWindowData.videoSrcL = data.videoSrcL;
-      this.popWindowData.videoSrcR = data.videoSrcR;
       this.popWindowData.deviceId = data.deviceId;
       this.popWindowData.leftCameraId = data.leftCameraId;
       this.popWindowData.rightCameraId = data.rightCameraId;
-      this.popWindowData.videoType = demoData.sysVideoType;
-
       return this.$refs.mapWindow;
     },
     // 地图撒点,添加信息窗体
     addPoints: function() {
-      // this.selfMap.clearInfoWindow();
-      // this.selfMap.remove(this.CircleMarkers);
-      // this.CircleMarkers = [];
+      //点集合
       let points = this.pointDatas;
+      console.log(points);
       let len = points.length;
-      let pointColor = "#6BDE58";
       let self = this;
       let infoWindow = new AMap.InfoWindow({
         isCustom: true, // 使用自定义窗体
         anchor: "bottom-center",
-        offset: new AMap.Pixel(0, -6),
+        offset: new AMap.Pixel(-10, -10),
         alwaysRender: true,
         showShadow: true,
         autoMove: true
         // closeWhenClickMap: true // 点击弹框以外的地方，关闭弹框
       });
       for (let i = 0; i < len; i++) {
-        if (points[i].gpsx == "" || points[i].gpsy == "") return;
+        if (points[i].gpsx === "" || points[i].gpsy === "") return;
         let url = "";
-        if (points[i].type === 1) {
+        if (i%2 === 0) {
           url = require("../assets/mapImg/lajitong36.png");
         } else {
           url = require("../assets/mapImg/lajidian-cun.png");
         }
         let marker = new AMap.Marker({
+          //84坐标转高德
           position: CoordTransform.wgs84togcj02(points[i].gpsx, points[i].gpsy),
           offset: new AMap.Pixel(-18, -18),
           icon: url // 添加 Icon 图标 URL
@@ -393,6 +196,7 @@ export default {
         this.CircleMarkers.push(marker);
         // 绑定点击事件--弹出信息窗体
         marker.on("click", function(e) {
+          console.log(e);
           self.closeInfoWindow();
           self.selfMap.setZoomAndCenter(17, [
             e.lnglat.lng,
@@ -400,93 +204,25 @@ export default {
           ]);
           infoWindow.setContent(self.createInfoWindow(e.target.data));
           infoWindow.open(self.selfMap, e.lnglat);
-          // if (e.target.isAlarm) {
-          //   e.target.setIcon(require('../assets/mapImg/lajitong36.png'));
-          //   e.target.isAlarm = false
-          // }
           if (e.target.data.type === 1) {
             self.currentPrecinctType = "社区";
           } else {
             self.currentPrecinctType = "行政村";
             self.popWindowData.state = "正常";
           }
-          setTimeout(() => {
-            self.$refs.mapDevice1.videoPlay();
-          }, 600);
-          setTimeout(() => {
-            self.$refs.mapDevice2.videoPlay();
-          }, 600);
+
           self.infoWindow = infoWindow;
         });
       }
       this.selfMap.add(this.CircleMarkers);
     },
-    showAlarmPoint: function() {
-      let url =
-        "apis/garbage/deviceAlarm?precinctName=" +
-        this.$store.state.precinctName;
-      Axios.get(url).then(res => {
-        if (res.data.data) {
-          let alarmPoints = res.data.data;
-          if (alarmPoints.length == 0) return;
-          this.$root.eventBus.$emit("refrushAlarm", alarmPoints);
-          let alarmMarkers = [];
-          for (let i = 0; i < this.CircleMarkers.length; i++) {
-            let marker = this.CircleMarkers[i];
-            let index = alarmPoints.findIndex(
-              oo => marker.data.deviceId == oo.deviceId
-            );
-            if (index != -1) {
-              marker.setIcon(require("../assets/mapImg/lajitong36_alarm.png"));
-              marker.isAlarm = true;
-              marker.setzIndex(this.CircleMarkers.length + 100);
-              alarmMarkers.push(marker);
-            } else {
-              if (marker.isAlarm) {
-                marker.setIcon(require("../assets/mapImg/lajitong36.png"));
-                marker.isAlarm = false;
-              }
-            }
-          }
-          this.myTimerFlicker && clearInterval(this.myTimerFlicker);
-          this.myTimerFlicker = setInterval(() => {
-            for (let i = 0; i < alarmMarkers.length; i++) {
-              if (alarmMarkers[i].isShow) {
-                alarmMarkers[i].hide();
-                alarmMarkers[i].isShow = false;
-              } else {
-                alarmMarkers[i].show();
-                alarmMarkers[i].isShow = true;
-              }
-            }
-          }, 500);
-        }
-      });
-    },
+    //初始化数据
     initData: function() {
-      this.selfMap.remove(this.CircleMarkers);
-      this.CircleMarkers = [];
-      let url =
-        "apis/garbage/queryGarbageDevice?precinctName=" +
-        this.$store.state.precinctName;
-      Axios.get(url).then(res => {
-        if (res.data.data) {
-          this.pointDatas = res.data.data;
-          this.addPoints();
-          // this.showAlarmPoint();
-          setTimeout(() => {
-             this.showAlarmPoint();
-          }, 1000)
-          this.myTimers = setInterval(() => {
-            this.showAlarmPoint();
-          }, 1000 * 60 * 10);
-        }
-      });
     },
+    // 初始化weosocket
     initWebSocket() {
-      // 初始化weosocket
       // ws地址
-      const wsuri = "ws://" + sysConfig.websocketUrl;
+      const wsuri = "ws://127.0.0.1:8088/websocket";
       if ("WebSocket" in window) {
         if (this.websock === null) {
           this.websock = new WebSocket(wsuri);
@@ -500,21 +236,56 @@ export default {
       }
       this.websock.onmessage = this.websocketonmessage;
     },
+    //监听websocket消息
     websocketonmessage(e) {
       console.log(e.data);
       let data = JSON.parse(e.data);
       console.log(data);
-      let deviceId = data.data;
-      if (deviceId) {
-        for (let i = 0; i < this.CircleMarkers.length; i++) {
-          let marker = this.CircleMarkers[i];
-          if (marker.data.deviceId == deviceId) {
-            marker.setIcon(require("../assets/mapImg/lajitong36.png"));
-          }
-        }
-      }
     }
+  },
+  mounted() {
+    let contW = 1920 * 2;
+    let contH = 1080 * 2;
+    let cliWidth =
+      document.documentElement.clientWidth || document.body.clientWidth;
+    let cliHeight =
+      document.documentElement.clientHeight || document.body.clientHeight;
+    let w = cliWidth / contW;
+    let h = cliHeight / contH;
+    this.resize({ w: w, h: h });
+    this.$root.eventBus.$on("resize", oo => {
+      this.resize(oo);
+    });
+    this.$root.eventBus.$on("changePId", oo => {
+      this.closeInfoWindow();
+      if (this.myTimers) clearInterval(this.myTimers)
+      let centerPoint, mapZoom;
+      if (oo.pId == "高东镇") {
+
+        mapZoom = 13;
+        this.selfMap.setCenter([121.622783, 31.327013]);
+      } else {
+        mapZoom = 17;
+        this.geocoder.getLocation("高东镇" + oo.pId, (status, result) => {
+          if (status === "complete" && result.geocodes.length) {
+            var lnglat = result.geocodes[0].location;
+            this.selfMap.setCenter(lnglat);
+          } else {
+            console.log("根据地址查询位置失败");
+          }
+        });
+      }
+      this.selfMap.setZoom(mapZoom);
+      this.initData();
+    });
+    this.initMap();
+    // this.initWebSocket();
+  },
+  destroyed: function() {
+    this.selfMap && this.selfMap.destroy();
+    this.clearAllTimer();
   }
+
 };
 </script>
 <style lang="scss" scoped>
@@ -524,8 +295,10 @@ export default {
   .infoWindow {
     position: relative;
     padding: 20px 46px 0;
-    width: 560px;
-    height: 476px;
+    width: 480px;
+    height: 360px;
+    text-align: center;
+    background-color: darkcyan;
 
     &.no-video-height {
       height: 280px;
@@ -542,11 +315,12 @@ export default {
 
     .infoDiv {
       width: 100%;
-      height: 180px;
+      height: 100%;
+      margin-top: 10%;
 
       .infoDivL {
-        width: 48%;
-        height: 180px;
+        width: 100%;
+        height: 100%;
         display: inline-block;
 
         .row {
@@ -575,71 +349,9 @@ export default {
         }
       }
 
-      .infoDivR {
-        display: inline-block;
-        width: 50%;
-        height: 180px;
-        margin-top: 6px;
-        vertical-align: top;
-        text-align: center;
 
-        .garbageDiv {
-          display: inline-block;
-          width: 32%;
-          height: 100%;
-          text-align: center;
-
-          .bars {
-            text-align: center;
-
-            .barCommon {
-              display: inline-block;
-              vertical-align: bottom;
-              width: 46%;
-              height: 100%;
-              font-size: 13px;
-              font-weight: bold;
-
-              .temRed {
-                background: #f6ff00;
-                border-radius: 3px;
-                color: #fc000f;
-              }
-
-              .barBase {
-                margin: 4px 0;
-                height: 80px;
-                border: 2px solid #c1b5a4;
-                .barValue {
-                  width: 100%;
-                  background-color: #fff;
-                  /*background-color: red;*/
-                  /*border-bottom-right-radius: 10px;*/
-                  /*border-bottom-left-radius: 10px;*/
-                  opacity: 0.2;
-                }
-              }
-            }
-          }
-
-          .barText {
-            padding-top: 10px;
-          }
-        }
-      }
     }
 
-    .videoDiv {
-      position: relative;
-      width: 100%;
-
-      .mapVideoDIV {
-        float: left;
-        width: 228px;
-        height: 180px;
-        margin: 2px;
-      }
-    }
   }
 
   .normalInfo {

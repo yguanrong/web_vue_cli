@@ -1,16 +1,18 @@
 <template>
   <div style="height: 100%; width: 100%">
-    <init-websocket></init-websocket>
+    <!--<init-websocket></init-websocket>-->
+    <map-view></map-view>
   </div>
 
 </template>
 
 <script>
-  import InitWebsoket from '../components/InitWebsocket'
+import mapView from '../components/MapView'
 export default {
   name: 'HelloWorld',
   components:{
-    'init-websocket': InitWebsoket
+    // 'init-websocket': InitWebsoket
+    'map-view': mapView
   },
   data () {
     return {

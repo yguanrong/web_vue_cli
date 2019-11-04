@@ -49,7 +49,7 @@ import $ from 'jquery'
             websocket:null,
             msg:'',
             receiverId:'',
-            sendId:'444',
+            sendId:'3333',
             options:[
               {value:'1111',label:'小明'},
               {value:'2222',label:'小王'},

@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './vuex/store'
 import Axios from 'axios'
 import {interceptor} from './utils/ajax'
 import ElementUI from 'element-ui'
@@ -19,6 +20,7 @@ interceptor(Axios);
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>',
   data: {

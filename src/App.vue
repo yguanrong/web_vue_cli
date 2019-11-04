@@ -47,8 +47,9 @@
 
 <style lang="scss">
   #app {
-    width: 1920px;
-    height: 1080px;
+    width: 100%;
+    height: 100%;
+    background-color: #162469;
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
