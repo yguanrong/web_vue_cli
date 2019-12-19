@@ -14,9 +14,7 @@
           <div class="row">所属村：{{popWindowData.precinctName}}</div>
           <div
             :title="popWindowData.installAddr"
-            class="row"
-            style="width: 480px;"
-          >具体位置：{{popWindowData.installAddr}}</div>
+            class="row">具体位置：{{popWindowData.installAddr}}</div>
           <div class="row">负责人：{{popWindowData.leader}}</div>
           <div class="row">联系电话：{{popWindowData.phone}}</div>
         </div>
@@ -24,7 +22,7 @@
       <i
         @click="closeInfoWindow"
         class="el-icon-close"
-        style="position: absolute;top: 32px;right: 32px;cursor: pointer"
+        style="position: absolute;top: 32px;right: 20px;cursor: pointer"
       />
     </div>
   </div>
@@ -295,14 +293,21 @@ export default {
   .infoWindow {
     position: relative;
     padding: 20px 46px 0;
-    width: 480px;
-    height: 360px;
+    width: 350px;
+    height: 314px;
     text-align: center;
-    background-color: darkcyan;
+    background-color: rgba(0, 139, 139, 0.54);
+    border-style:solid;
+    border-width:2px;
+    border-color: chartreuse;
 
     &.no-video-height {
       height: 280px;
       overflow: hidden;
+    }
+    .el-icon-close:before {
+      content: "\E6DB";
+      color: white;
     }
 
     .title {
@@ -315,7 +320,7 @@ export default {
 
     .infoDiv {
       width: 100%;
-      height: 100%;
+      height: 90%;
       margin-top: 10%;
 
       .infoDivL {
