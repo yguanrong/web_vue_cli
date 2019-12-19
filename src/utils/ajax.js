@@ -1,22 +1,22 @@
 function interceptor (Axios) {
+  //拦截器,请求拦截
   Axios.interceptors.request.use(function (request) {
-      const url = request.url
-      // request.url = "/apis" + url
-      // 添加token
-      // request.headers.common.Authorization = localStorage.token;
-      let r = new Date().getTime()
-      if (request.url.indexOf('?') != -1) {
+      const url = request.url;
+      let r = new Date().getTime();
+      if (request.url.indexOf('?') !== -1) {
         request.url += '&r=' + r
       } else {
         request.url += '?r=' + r
       }
-      request.headers.ZnvToken = '678C7B996793BA023649F822DB1DA2AD'; // 标识自家系统调用后端接口
+      //添加万能token，正式使用时需要注解掉
+      request.headers.Authorization = '12CBD9B708D887A41AFAB97DAC46AAC6'; // 标识自家系统调用后端接口
       return request
     }, function (error) {
       // 对响应错误做处理
       return Promise.reject(error)
     }
-  )
+  );
+  //拦截器，接受数据拦截
   Axios.interceptors.response.use(function (response) {
     if (response.status === 401) {
       // sessionStorage.clear();
