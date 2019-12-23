@@ -25,6 +25,6 @@ new Vue({
   template: '<App/>',
   data: {
     // 空的实例放到根组件下，所有的子组件都能调用
-    eventBus: new Vue()
+    Bus: new Vue()
   }
 });

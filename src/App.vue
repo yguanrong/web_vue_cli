@@ -39,7 +39,7 @@
           .css("transformOrigin", "top left")
           .width(contW).height(contH)
 
-        this.$root.eventBus.$emit('resize', {'w': w, 'h': h}); // 地图自适应，解决坐标异常问题
+        this.$root.Bus.$emit('resize', {'w': w, 'h': h}); // 地图自适应，解决坐标异常问题
       }
     }
   };

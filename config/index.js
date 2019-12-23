@@ -11,11 +11,11 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/apis':{
-        target: 'http://localhost:8088',
+      '/video':{
+        target: 'http://101.132.137.213:8080',
         changeOrigin: true,
         pathRewrite:{
-          '^/apis':''
+          '^/video':''
         }
       }
 
