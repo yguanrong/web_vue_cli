@@ -1,6 +1,6 @@
 <template>
-  <div class="VideoContent">
-      <video id="myVideo" width="960" height="610" :poster="img" autoplay controls>
+  <div class="VideoDiv">
+      <video id="myVideo" class="videoContent" :poster="img" autoplay controls>
         <source id="mysource" src="" type="video/mp4">
       </video>
   </div>
@@ -35,10 +35,14 @@
 </script>
 
 <style lang="scss">
-  .VideoContent {
+  .VideoDiv {
     width: 100%;
     height: 100%;
     border: 1px solid darkcyan;
     background: black;
+  }
+  .videoContent{
+    width: 960px;
+    height: 610px
   }
 </style>

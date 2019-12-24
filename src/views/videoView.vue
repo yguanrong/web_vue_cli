@@ -44,6 +44,12 @@
             {num:38,label:'第38集'},
             {num:39,label:'第39集'},
             {num:40,label:'第40集'},
+            {num:40,label:'第41集'},
+            {num:40,label:'第42集'},
+            {num:40,label:'第43集'},
+            {num:40,label:'第44集'},
+            {num:40,label:'第45集'},
+            {num:40,label:'第46集'},
 
           ],
           titleName:'庆余年',
