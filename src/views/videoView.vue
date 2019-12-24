@@ -2,21 +2,21 @@
   <div class="video-view">
     <div class="title-class">
       <el-row>
-        <el-col :span="4">
-          <h3 class="h-text">{{label}}</h3>
+        <el-col :span="8">
+          <h3 class="l-text">{{label}}</h3>
         </el-col>
-        <el-col :span="16">
+        <el-col :span="8">
           <h3 class="h-text">{{titleName}}</h3>
         </el-col>
-        <el-col :span="4">
-          <h3 class="h-text">11:24</h3>
+        <el-col :span="8">
+          <h3 class="r-text">{{time}}</h3>
         </el-col>
       </el-row>
       <hr class="line">
     </div>
     <video-comp ref="videoComponent" class="video-class"></video-comp>
     <div class="btn-class">
-      <el-button v-for="item in videoData" @click="videoPlay(item.num)" type="warning">
+      <el-button v-for="item in videoData" @click="videoPlay(item)" type="warning">
         {{item.label}}
       </el-button>
     </div>
@@ -26,7 +26,6 @@
 
 <script>
   import videoComp from '../components/VideoComp'
-
     export default {
       name: "videoView",
       components:{
@@ -53,59 +52,57 @@
 
           ],
           titleName:'庆余年',
-          label:'第1集'
+          label:'第32集',
+          time:new Date(),
+          timer: null  // 定时器名称
         }
       },
       methods:{
-        videoPlay(num){
+        videoPlay(item){
           //http://101.132.137.213:8080/file/video/qyn/庆余年32集.mp4
-          let url = 'http://101.132.137.213:8080/file/video/qyn/' + this.titleName + num+'.mp4';
+          let url = 'http://101.132.137.213:8080/file/video/qyn/' + this.titleName + item.num+'.mp4';
           this.$root.Bus.$emit('changeSrc',url);
+          document.title = item.label;
+          this.label = item.label;
         },
-
+        //时间函数
+        getCurrentTime(){
+          let str='';
+          let date = new Date();
+          let hh = '';
+          let mm = '';
+          let ss = '';
+          if (date.getHours()>=10){
+            hh = date.getHours()+'';
+          } else {
+            hh = '0'+date.getHours();
+          }
+          if (date.getMinutes()>=10){
+            mm = date.getMinutes()+'';
+          } else {
+            mm = '0'+date.getMinutes();
+          }
+          if (date.getSeconds()>=10){
+            ss = date.getSeconds()+'';
+          } else {
+            ss = '0'+date.getSeconds();
+          }
+          str = hh+':'+mm+':'+ss;
+          return str;
+        },
+      },
+      mounted() {
+        this.time = setInterval(() =>{
+          this.time = this.getCurrentTime();
+        }, 1000);
+      },
+      beforeDestroy() {
+        clearInterval(this.timer);
+        this.timer = null;
       }
     }
 </script>
 
 <style lang="scss">
-  .video-view{
-    width: 100%;
-    height: 95%;
 
-    .title-class{
-      width: 100%;
-      height: 8%;
-
-      .line{
-        text-align: center;
-        width: 95%;
-        height: 1px;
-        background-image: linear-gradient(to right, greenYellow,red, #fefff6);
-      }
-      .h-text{
-        text-align: center;color: white;font-size: 25px
-      }
-      h3 {
-        margin-block-end: 0em;
-      }
-    }
-    .video-class{
-      width: 50%;
-      height: 60%;
-      margin: 20px 25%;
-    }
-    .btn-class{
-      width: 50%;
-      text-align: left;
-      height: 30%;
-      margin: 10px 25%;
-      padding-left: 10px;
-      font-size: 30px;
-
-      .el-button{
-        font-size: 22px;
-        margin:10px;
-      }
-    }
-  }
 </style>

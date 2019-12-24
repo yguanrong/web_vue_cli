@@ -35,14 +35,5 @@
 </script>
 
 <style lang="scss">
-  .VideoDiv {
-    width: 100%;
-    height: 100%;
-    border: 1px solid darkcyan;
-    background: black;
-  }
-  .videoContent{
-    width: 960px;
-    height: 610px
-  }
+
 </style>

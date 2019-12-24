@@ -30,6 +30,10 @@
       resize: function () {
         let contW = 1920 ;
         let contH = 1080 ;
+        if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
+          contW = 1080;
+          contH = 2340;
+        }
         let cliWidth = document.documentElement.clientWidth || document.body.clientWidth;
         let cliHeight = document.documentElement.clientHeight || document.body.clientHeight;
         let w = cliWidth / contW;
@@ -40,6 +44,15 @@
           .width(contW).height(contH)
 
         this.$root.Bus.$emit('resize', {'w': w, 'h': h}); // 地图自适应，解决坐标异常问题
+      },
+    },
+    created() {
+      if(!/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
+        require('./common/style/index.scss');
+        console.log(navigator.userAgent)
+      }else{
+        require('./common/style/mobile.scss');
+        console.log(navigator.userAgent)
       }
     }
   };
