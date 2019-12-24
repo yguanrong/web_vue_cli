@@ -16,7 +16,7 @@
     </div>
     <video-comp ref="videoComponent" class="video-class"></video-comp>
     <div class="btn-class">
-      <el-button v-for="item in videoData" @click="videoPlay(item.label)" type="warning">
+      <el-button v-for="item in videoData" @click="videoPlay(item.num)" type="warning">
         {{item.label}}
       </el-button>
     </div>
@@ -35,12 +35,15 @@
       data(){
         return{
           videoData:[
-            {num:1,label:'第32集'},
-            {num:2,label:'第33集'},
-            {num:3,label:'第34集'},
-            {num:4,label:'第35集'},
-            {num:5,label:'第36集'},
-            {num:6,label:'第37集'},
+            {num:32,label:'第32集'},
+            {num:33,label:'第33集'},
+            {num:34,label:'第34集'},
+            {num:35,label:'第35集'},
+            {num:36,label:'第36集'},
+            {num:37,label:'第37集'},
+            {num:38,label:'第38集'},
+            {num:39,label:'第39集'},
+            {num:40,label:'第40集'},
 
           ],
           titleName:'庆余年',
@@ -48,8 +51,9 @@
         }
       },
       methods:{
-        videoPlay(label){
-          let url = 'http://101.132.137.213:8080/video/' + this.titleName + label;
+        videoPlay(num){
+          //http://101.132.137.213:8080/file/video/qyn/庆余年32集.mp4
+          let url = 'http://101.132.137.213:8080/file/video/qyn/' + this.titleName + num+'.mp4';
           this.$root.Bus.$emit('changeSrc',url);
         },
 

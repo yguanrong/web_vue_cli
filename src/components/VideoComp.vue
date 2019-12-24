@@ -1,6 +1,6 @@
 <template>
   <div class="VideoContent">
-      <video id="myVideo" style="width: 100%" :poster="img" autoplay controls>
+      <video id="myVideo" width="960" height="610" :poster="img" autoplay controls>
         <source id="mysource" src="" type="video/mp4">
       </video>
   </div>
@@ -8,6 +8,7 @@
 
 <script>
   import jq from 'jquery'
+
   export default {
     name: "ZNVVideo",
     data() {
@@ -18,17 +19,15 @@
     },
     methods: {
       videoPlay(url) {
-
-        jq('#mysource').attr('src',url)
-        // video.load();
-        // video.play();
-        // jq('#myVideo').play()
+        let video = jq('#myVideo')[0];
+        video.src = url;
+        video.load();
+        video.play();
       }
     },
     mounted(){
       let self = this;
       this.$root.Bus.$on('changeSrc',(url)=>{
-        // self.videoLink = url
         self.videoPlay(url);
       })
     }
@@ -39,5 +38,7 @@
   .VideoContent {
     width: 100%;
     height: 100%;
+    border: 1px solid darkcyan;
+    background: black;
   }
 </style>
