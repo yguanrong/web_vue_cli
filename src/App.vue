@@ -24,7 +24,18 @@
             }, 100)
           }
         })()
-      }
+      };
+      let self = this;
+      this.$root.Bus.$on('busResize',()=>{
+        self.resize();
+        if(!/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
+          require('./common/style/index.scss');
+          console.log('is pc')
+        }else{
+          require('./common/style/mobile.scss');
+          console.log('is phone')
+        }
+      })
     },
     methods: {
       resize: function () {
@@ -49,10 +60,10 @@
     created() {
       if(!/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
         require('./common/style/index.scss');
-        console.log(navigator.userAgent)
+        console.log('is pc')
       }else{
         require('./common/style/mobile.scss');
-        console.log(navigator.userAgent)
+        console.log('is phone')
       }
     }
   };

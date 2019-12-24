@@ -15,6 +15,7 @@
       <hr class="line">
     </div>
     <video-comp ref="videoComponent" class="video-class"></video-comp>
+    <h4 class="h4-num">集 数</h4>
     <div class="btn-class">
       <el-button v-for="item in videoData" @click="videoPlay(item)" type="warning">
         {{item.label}}

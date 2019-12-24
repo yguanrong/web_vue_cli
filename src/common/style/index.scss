@@ -1,6 +1,6 @@
 .video-view{
   width: 100%;
-  height: 95%;
+  height: 98%;
 
   .title-class{
     width: 100%;
@@ -30,13 +30,21 @@
     height: 60%;
     margin: 20px 25%;
   }
+  .h4-num{
+    color: white;
+    margin-left: 26%;
+    font-size: 23px;
+    margin-block-end: 0em;
+    margin-block-start: 0em;
+  }
   .btn-class{
     width: 50%;
     text-align: left;
-    height: 30%;
+    height: 24%;
     margin: 10px 25%;
     padding-left: 10px;
     font-size: 30px;
+    border: 1px solid dodgerblue;
 
     .el-button{
       font-size: 22px;
