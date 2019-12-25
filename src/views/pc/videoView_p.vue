@@ -108,8 +108,5 @@
 </script>
 
 <style lang="scss">
-  .el-button{
-    font-size: 22px;
-    margin:10px;
-  }
+
 </style>
