@@ -62,7 +62,7 @@
         videoPlay(item){
           //http://101.132.137.213:8080/file/video/qyn/庆余年32集.mp4
           let url = 'http://101.132.137.213:8080/file/video/qyn/' + this.titleName + item.num+'.mp4';
-          if (item.label.indexOf('hp')) {
+          if (item.label.indexOf('hp')!== -1) {
             url = 'http://101.132.137.213:8080/file/video/hp/hp' + item.num+'.mp4';
           }
           this.$root.Bus.$emit('changeSrc',url);
