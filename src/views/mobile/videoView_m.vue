@@ -15,10 +15,15 @@
       <hr class="line">
     </div>
     <video-comp ref="videoComponent" class="video-class"></video-comp>
+    <div class="type-class">
+      <el-button v-for="item in videoList" @click="changeVideo(item)" type="success">
+        {{item.videoSub}}
+      </el-button>
+    </div>
     <h4 class="h4-num">集 数</h4>
     <div class="btn-class">
       <el-button v-for="item in videoData" @click="videoPlay(item)" type="warning">
-        {{item.label}}
+        第{{item.videoIndex}}集
       </el-button>
     </div>
   </div>
@@ -27,6 +32,7 @@
 
 <script>
   import videoComp from '../../components/mobile/VideoComp_m'
+  import axios from 'axios'
     export default {
       name: "videoView",
       components:{
@@ -34,24 +40,8 @@
       },
       data(){
         return{
-          videoData:[
-            {num:32,label:'第32集'},
-            {num:33,label:'第33集'},
-            {num:34,label:'第34集'},
-            {num:35,label:'第35集'},
-            {num:36,label:'第36集'},
-            {num:37,label:'第37集'},
-            {num:38,label:'第38集'},
-            {num:39,label:'第39集'},
-            {num:40,label:'第40集'},
-            {num:41,label:'第41集'},
-            {num:42,label:'第42集'},
-            {num:43,label:'第43集'},
-            {num:44,label:'第44集'},
-            {num:45,label:'第45集'},
-            {num:46,label:'第46集'},
-            {num:1,label:'第hp集'},
-          ],
+          videoData:[],
+          videoList:[],
           titleName:'庆余年',
           label:'第32集',
           time:new Date(),
@@ -61,13 +51,28 @@
       methods:{
         videoPlay(item){
           //http://101.132.137.213:8080/file/video/qyn/庆余年32集.mp4
-          let url = 'http://101.132.137.213:8080/file/video/qyn/' + this.titleName + item.num+'.mp4';
-          if (item.label.indexOf('hp')) {
-            url = 'http://101.132.137.213:8080/file/video/hp/hp' + item.num+'.mp4';
-          }
+          let url = 'http://101.132.137.213:8080/file/' + item.videoPath;
+
           this.$root.Bus.$emit('changeSrc',url);
-          document.title = item.label;
-          this.label = item.label;
+          document.title = item.videoType;
+          this.label = '第' + item.videoIndex + '集';
+        },
+        initData(){
+          let url = '/apis/queryVideoData';
+          axios.get(url)
+            .then((res)=>{
+              console.log(res)
+              if (res.status === 200){
+                this.videoList = res.data;
+                this.videoData = this.videoList[0];
+              }
+            })
+            .catch((error)=>{
+              console.log(error);
+            })
+        },
+        changeVideo(item){
+          this.videoData = item.videos;
         },
         //时间函数
         getCurrentTime(){
@@ -96,9 +101,10 @@
         },
       },
       mounted() {
-        this.time = setInterval(() =>{
+        this.timer = setInterval(() =>{
           this.time = this.getCurrentTime();
         }, 1000);
+        this.initData();
       },
       beforeDestroy() {
         clearInterval(this.timer);
