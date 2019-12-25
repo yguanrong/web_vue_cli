@@ -1,6 +1,6 @@
 <template>
-  <div class="VideoDiv">
-      <video id="myVideo" class="videoContent" :poster="img" autoplay controls>
+  <div class="VideoDiv-p">
+      <video id="myVideo" class="videoContent-p" :poster="img" autoplay controls>
         <source id="mysource" src="" type="video/mp4">
       </video>
   </div>
@@ -14,7 +14,7 @@
     data() {
       return {
         videoLink: '',
-        img:require('../assets/bg.jpg'),
+        img:require('../../assets/bg.jpg'),
       }
     },
     methods: {

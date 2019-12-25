@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import videoComp from '../components/VideoComp'
+  import videoComp from '../../components/mobile/VideoComp_m'
     export default {
       name: "videoView",
       components:{
@@ -44,13 +44,13 @@
             {num:38,label:'第38集'},
             {num:39,label:'第39集'},
             {num:40,label:'第40集'},
-            {num:40,label:'第41集'},
-            {num:40,label:'第42集'},
-            {num:40,label:'第43集'},
-            {num:40,label:'第44集'},
-            {num:40,label:'第45集'},
-            {num:40,label:'第46集'},
-
+            {num:41,label:'第41集'},
+            {num:42,label:'第42集'},
+            {num:43,label:'第43集'},
+            {num:44,label:'第44集'},
+            {num:45,label:'第45集'},
+            {num:46,label:'第46集'},
+            {num:1,label:'第hp集'},
           ],
           titleName:'庆余年',
           label:'第32集',
@@ -62,6 +62,9 @@
         videoPlay(item){
           //http://101.132.137.213:8080/file/video/qyn/庆余年32集.mp4
           let url = 'http://101.132.137.213:8080/file/video/qyn/' + this.titleName + item.num+'.mp4';
+          if (item.label.indexOf('hp')) {
+            url = 'http://101.132.137.213:8080/file/video/hp/hp' + item.num+'.mp4';
+          }
           this.$root.Bus.$emit('changeSrc',url);
           document.title = item.label;
           this.label = item.label;
@@ -105,5 +108,8 @@
 </script>
 
 <style lang="scss">
-
+  .el-button{
+    font-size: 40px;
+    margin:10px;
+  }
 </style>

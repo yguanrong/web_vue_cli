@@ -12,6 +12,7 @@
     components: {},
     mounted() {
       this.resize();
+      this.initView();
       // 防抖
       let resizeTag = true;
       window.onresize = () => {
@@ -25,17 +26,7 @@
           }
         })()
       };
-      let self = this;
-      this.$root.Bus.$on('busResize',()=>{
-        self.resize();
-        if(!/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
-          require('./common/style/index.scss');
-          console.log('is pc')
-        }else{
-          require('./common/style/mobile.scss');
-          console.log('is phone')
-        }
-      })
+
     },
     methods: {
       resize: function () {
@@ -56,16 +47,16 @@
 
         this.$root.Bus.$emit('resize', {'w': w, 'h': h}); // 地图自适应，解决坐标异常问题
       },
-    },
-    created() {
-      if(!/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
-        require('./common/style/index.scss');
-        console.log('is pc')
-      }else{
-        require('./common/style/mobile.scss');
-        console.log('is phone')
+      initView(){
+        if(!/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
+          console.log('is pc');
+          this.$router.push({path:'/pc'})
+        }else{
+          console.log('is phone');
+          this.$router.push({path:'/mobile'})
+        }
       }
-    }
+    },
   };
 </script>
 

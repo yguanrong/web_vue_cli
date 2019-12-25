@@ -8,6 +8,8 @@ import Axios from 'axios'
 import {interceptor} from './utils/ajax'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import './common/style/index.scss'
+import './common/style/mobile.scss'
 
 Vue.config.productionTip = false;
 
@@ -26,5 +28,5 @@ new Vue({
   data: {
     // 空的实例放到根组件下，所有的子组件都能调用
     Bus: new Vue()
-  }
+  },
 });
