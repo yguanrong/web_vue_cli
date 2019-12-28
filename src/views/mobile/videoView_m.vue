@@ -42,8 +42,8 @@
         return{
           videoData:[],
           videoList:[],
-          titleName:'庆余年',
-          label:'第32集',
+          titleName:'',
+          label:'',
           time:new Date(),
           timer: null  // 定时器名称
         }
@@ -64,7 +64,8 @@
               console.log(res)
               if (res.status === 200){
                 this.videoList = res.data;
-                this.videoData = this.videoList[0];
+                this.videoData = this.videoList[0].videos;
+                this.titleName = this.videoList[0].videoSub;
               }
             })
             .catch((error)=>{
@@ -73,6 +74,7 @@
         },
         changeVideo(item){
           this.videoData = item.videos;
+          this.titleName = item.videoSub;
         },
         //时间函数
         getCurrentTime(){
